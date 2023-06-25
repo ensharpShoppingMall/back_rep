@@ -4,7 +4,7 @@ const bodyparser = require("body-parser");
 app.use(bodyparser.urlencoded({extended: true})) 
 app.use(bodyparser.json());
 
-const port = 3000;
+const port = 8080;
 
 const member = require("./routes/member");
 const order = require("./routes/order");
