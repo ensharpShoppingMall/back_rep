@@ -36,7 +36,7 @@ router.post("/api/join", (req, res) => {
     const params = [req.body.member_id, req.body.password, req.body.name, req.body.zipcode, req.body.address, req.body.phonenumber, req.body.mobilenumber, req.body.email];
     const query = `insert into member values('${params[0]}', '${params[1]}', '${params[2]}', ${params[3]}, '${params[4]}', '${params[5]}', '${params[6]}', '${params[7]}');`
 
-    db.connect();
+
     db.query(query, function(err, results){
         if(err) {
             res.json({
@@ -51,7 +51,6 @@ router.post("/api/join", (req, res) => {
         }
     });
 
-    db.end();
 });
 
 router.get("/api/find/id-with-email", (req, res) => {
