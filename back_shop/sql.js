@@ -7,5 +7,4 @@ module.exports = {
         query: `insert into member set ?`
     },
 
-    
 }
