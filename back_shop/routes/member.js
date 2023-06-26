@@ -7,35 +7,56 @@ const db = require("../config/mysql");
 router.get("/api/login", (req, res) => {
     const member_id = req.query.member_id;
     const member_pw = req.query.password;
-    if(member_id && member_pw){
-        db.connect();
-        db.query(`select * from member where member_id = '${member_id}' and password = '${member_pw}'`, function(error, results){
-            if(error) res.send(error)
 
-            else if(results === undefined){
-                return res.json({
-                    success: false,
-                    id: "null"
-                });
-            }
-            else{
-                return res.json({
-                    success: true,
-                    id: member_id
-                });
-            }
+    const query = `select * from member where member_id = '${member_id}' and password = '${member_pw}'`;
+    
+    db.query(query, function(error, results) {
+        if(error) res.json({
+            success: error
         })
-        db.end();
-    }
-    else{
-        res.send("more inputValue");
-    }
+        else if(results == undefined){
+            res.json({
+                success: "false",
+                id: "null"
+            })
+        }
+        else{
+            res.json({
+                success: "true",
+                id: member_id
+            })
+        }
+    })
+
+    // if(member_id && member_pw){
+    //     db.getConnection();
+    //     const [results] = await db.query(query)
+    //     //db.query(`select * from member where member_id = '${member_id}' and password = '${member_pw}'`, function(error, results){
+    //     if(error) res.send(error)
+
+    //     else if(results === undefined){
+    //         return res.json({
+    //             success: false,
+    //             id: "null"
+    //         });
+    //     }
+                
+    //     else{
+    //         return res.json({
+    //             success: true,
+    //             id: member_id
+    //         });
+    //     }
+    // }
+    // db.end();
+    // else{
+    //     res.send("more inputValue");
+    // }
 });
 
 router.post("/api/join", (req, res) => {
     const params = [req.body.member_id, req.body.password, req.body.name, req.body.zipcode, req.body.address, req.body.phonenumber, req.body.mobilenumber, req.body.email];
     const query = `insert into member values('${params[0]}', '${params[1]}', '${params[2]}', ${params[3]}, '${params[4]}', '${params[5]}', '${params[6]}', '${params[7]}');`
-
 
     db.query(query, function(err, results){
         if(err) {
@@ -50,7 +71,6 @@ router.post("/api/join", (req, res) => {
             });
         }
     });
-
 });
 
 router.get("/api/find/id-with-email", (req, res) => {
