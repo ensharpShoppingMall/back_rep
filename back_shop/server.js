@@ -17,7 +17,7 @@ app.use("/product", product);
 const dbPool = require("./config/mysql");
 
 app.get("/", (req, res) => {
-    res.send("mysql 수정했어요!");
+    res.send("mysql 또 수정했어요!");
 });
 
 app.listen(port, () => {

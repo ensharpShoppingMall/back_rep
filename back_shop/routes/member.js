@@ -27,6 +27,7 @@ router.get("/api/login", (req, res) => {
             })
         }
     })
+    db.end();
 
     // if(member_id && member_pw){
     //     db.getConnection();
@@ -71,6 +72,7 @@ router.post("/api/join", (req, res) => {
             });
         }
     });
+    db.end();
 });
 
 router.get("/api/find/id-with-email", (req, res) => {
@@ -78,8 +80,6 @@ router.get("/api/find/id-with-email", (req, res) => {
     const email = req.query.email;
 
     const query = `select * from member where name = '${name}' and email = '${email}'`;
-
-    db.connect();
     db.query(query, function(error, results) {
 
         if(error) {
@@ -107,7 +107,6 @@ router.get("/api/find/id-with-phonenumber", (req, res) => {
 
     const query = `select * from member where name = '${name}' and phonenumber = '${phonenumber}'`;
 
-    db.connect();
     db.query(query, function(error, results) {
 
         if(error) {
@@ -126,8 +125,8 @@ router.get("/api/find/id-with-phonenumber", (req, res) => {
             });
         }
     })
-
     db.end();
+
 });
 
 router.get("/api/find/passwd-with-email", (req, res) => {
@@ -137,7 +136,6 @@ router.get("/api/find/passwd-with-email", (req, res) => {
 
     const query = `select * from member where member_id = '${id}' and name = '${name}' and email = '${email}'`
 
-    db.connect();
     db.query(query, function(error, results) {
         if(error) {
             res.json({
