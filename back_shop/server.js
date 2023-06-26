@@ -5,6 +5,8 @@ app.use(bodyparser.urlencoded({extended: true}))
 app.use(bodyparser.json());
 
 const port = 8080;
+require('dotenv').config();
+console.log("요고", process.env.MYSQL_HOST)
 
 const member = require("./routes/member");
 const order = require("./routes/order");
@@ -13,6 +15,8 @@ const product = require("./routes/product");
 app.use("/member", member);
 app.use("/cart", order);
 app.use("/product", product);
+
+console.log(process.env.MYSQL_HOST);
 
 const dbPool = require("./config/mysql");
 
