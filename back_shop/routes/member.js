@@ -9,7 +9,7 @@ router.get("/api/login", (req, res) => {
     const member_pw = req.query.password;
 
     const query = `select * from member where member_id = '${member_id}' and password = '${member_pw}'`;
-    
+    db.connect();
     db.query(query, function(error, results) {
         if(error) res.json({
             success: error
@@ -58,7 +58,8 @@ router.get("/api/login", (req, res) => {
 router.post("/api/join", (req, res) => {
     const params = [req.body.member_id, req.body.password, req.body.name, req.body.zipcode, req.body.address, req.body.phonenumber, req.body.mobilenumber, req.body.email];
     const query = `insert into member values('${params[0]}', '${params[1]}', '${params[2]}', ${params[3]}, '${params[4]}', '${params[5]}', '${params[6]}', '${params[7]}');`
-
+    
+    db.connect();
     db.query(query, function(err, results){
         if(err) {
             res.json({
@@ -80,6 +81,8 @@ router.get("/api/find/id-with-email", (req, res) => {
     const email = req.query.email;
 
     const query = `select * from member where name = '${name}' and email = '${email}'`;
+
+    db.connect();
     db.query(query, function(error, results) {
 
         if(error) {
@@ -107,6 +110,7 @@ router.get("/api/find/id-with-phonenumber", (req, res) => {
 
     const query = `select * from member where name = '${name}' and phonenumber = '${phonenumber}'`;
 
+    db.connect();
     db.query(query, function(error, results) {
 
         if(error) {
@@ -135,7 +139,8 @@ router.get("/api/find/passwd-with-email", (req, res) => {
     const email = req.query.email;
 
     const query = `select * from member where member_id = '${id}' and name = '${name}' and email = '${email}'`
-
+    
+    db.connect();
     db.query(query, function(error, results) {
         if(error) {
             res.json({
