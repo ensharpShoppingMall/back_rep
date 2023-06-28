@@ -16,13 +16,13 @@ router.get("/api/login", (req, res) => {
         })
         else if(results == undefined){
             res.json({
-                success: "false",
+                success: false,
                 id: "null"
             })
         }
         else{
             res.json({
-                success: "true",
+                success: true,
                 id: member_id
             })
         }
